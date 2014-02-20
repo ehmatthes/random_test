@@ -1,0 +1,9 @@
+<p>Home | <a href="{% url 'other' %}">Other</a>
+
+<p>Random Numbers:
+
+<ul>
+{% for number in numbers %}
+  <li>{{ number }}</li>
+{% endfor %}
+</ul>
