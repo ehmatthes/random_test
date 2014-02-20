@@ -20,9 +20,16 @@ def index(request):
                               context_instance=RequestContext(request))
 
 
-def other(request):
+def refreshing_page(request):
+    # Invalidated the index page.
     invalidate_cache('index')
-    return render_to_response('random_app/other.html',
+    return render_to_response('random_app/refreshing_page.html',
+                              {},
+                              context_instance=RequestContext(request))
+
+
+def non_refreshing_page(request):
+    return render_to_response('random_app/non_refreshing_page.html',
                               {},
                               context_instance=RequestContext(request))
 
