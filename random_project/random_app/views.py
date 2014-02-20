@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_page, patch_cache_control
 
 from django.utils.cache import get_cache_key
 from django.core.cache import cache
@@ -14,10 +14,16 @@ from random import randint
 def index(request):
     numbers = [randint(1,9) for x in range(0,10)]
 
-    return render_to_response('random_app/index.html',
+    response = render_to_response('random_app/index.html',
                               {'numbers': numbers,
                                },
                               context_instance=RequestContext(request))
+
+    #response['Cache-Control'] = 'no-cache'
+    patch_cache_control(response,
+                        no_cache=True, no_store=True,
+                        must_revalidate=True, max_age=60)
+    return response
 
 
 def refreshing_page(request):
