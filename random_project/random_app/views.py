@@ -20,9 +20,7 @@ def index(request):
                               context_instance=RequestContext(request))
 
     #response['Cache-Control'] = 'no-cache'
-    patch_cache_control(response,
-                        no_cache=True, no_store=True,
-                        must_revalidate=True, max_age=60)
+    patch_cache_control(response, no_cache=True, no_store=True, must_revalidate=True, max_age=60)
     return response
 
 
@@ -81,7 +79,7 @@ def invalidate_cache(view_path, args=[], namespace=None, key_prefix=None):
         if cache.get(page_key):
             # Delete the page and header caches.
             cache.delete(page_key)
-            cache.delete(header_key)
+            #cache.delete(header_key)
 
             print 'invalidated cache'
             return True
